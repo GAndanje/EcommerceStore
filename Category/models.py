@@ -2,7 +2,7 @@ from distutils.command.upload import upload
 from tabnanny import verbose
 from unittest.util import _MAX_LENGTH
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 class Category(models.Model):
     category_name=models.CharField(max_length=100,unique=True)
@@ -14,4 +14,6 @@ class Category(models.Model):
         verbose_name='category'
         verbose_name_plural='categories'
     def __str__(self):
-        return self.category_name
+        return self.category_name 
+    def get_url(self):
+        return reverse('store_products_category',args=[self.slug])
