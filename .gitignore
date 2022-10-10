@@ -3,4 +3,6 @@
 db.sqlite3
 env/
 manage.py
-static/images/banners/2.jpg static/images/banners/black.jpg static/images/banners/futurist.jpg
+static/images/banners/2.jpg
+static/images/banners/black.jpg
+static/images/banners/futurist.jpg
