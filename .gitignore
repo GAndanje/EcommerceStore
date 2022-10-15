@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
+#my private images
+static/images/banners/2.jpg
+static/images/banners/black.jpg
+static/images/banners/futurist.jpg
 ### Django ###
 *.log
 *.pot
