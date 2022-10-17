@@ -1,5 +1,6 @@
 from email.policy import default
 from django.db import models
+from Store.models import ProductVariation
 from Store.models import Product
 # Create your models here.
 class Cart(models.Model):
@@ -11,6 +12,7 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     product=models.ForeignKey(Product,models.CASCADE)
+    product_variation=models.ManyToManyField(ProductVariation,blank=True)
     cart=models.ForeignKey(Cart,models.CASCADE)
     is_active=models.BooleanField(default=True)
     quantity=models.IntegerField()
