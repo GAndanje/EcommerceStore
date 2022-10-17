@@ -19,4 +19,11 @@ class Product(models.Model):
 
     def get_url(self):
         return reverse('product_detail',args=[self.category.slug,self.slug])
-    
+
+# customising returned queryset
+class VariationsManager(models.Manager):
+    def colors(self):
+        return super(VariationsManager,self).filter(variation_category='color',is_active=True)
+
+    def sizes(self):
+        return super(VariationsManager,self).filter(variation_category='size',is_active=True)
