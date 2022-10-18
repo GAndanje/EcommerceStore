@@ -1,6 +1,6 @@
 from nis import cat
 from threading import get_ident
-from django.shortcuts import HttpResponse, render,get_object_or_404
+from django.shortcuts import HttpResponse, render,get_object_or_404,redirect
 from .models import Product
 from Category.models import Category
 from Cart.models import CartItem
@@ -15,16 +15,16 @@ def store(request,category_slug=None):
         categories=get_object_or_404(Category,slug=category_slug)
         products=Product.objects.all().filter(category=categories,is_available=True).order_by('id')
         paginator=Paginator(products,1)
-        page=request.GET.get('page')
-        paged_products=paginator.get_page(page)
+        page_num=request.GET.get('page')
+        paged_products=paginator.get_page(page_num)
     else:
         products=Product.objects.all().filter(is_available=True).order_by('id')
         paginator=Paginator(products,6)
-        page=request.GET.get('page')
-        paged_products=paginator.get_page(page)
+        page_num=request.GET.get('page')
+        paged_products=paginator.get_page(page_num)
     context={
-        'page':page,
-        'products':paged_products,
+        'page_num':page_num,
+        'page':paged_products,
         'products_count':products.count()
     }
     return render(request,'store/store.html',context)
@@ -46,12 +46,14 @@ def search(request):
         keyword=request.GET['keyword']
         if keyword:
             products=Product.objects.order_by('created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
-            paginator=Paginator(products,6)
-            page=request.GET.get('page')
-            paged_products=paginator.get_page(page)
+            paginator=Paginator(products,8)
+            page_num=request.GET.get('page')
+            paged_products=paginator.get_page(page_num)
+        else:
+            return redirect('store')
     context={
-        'page':page,
-        'products':paged_products,
+        'page_num':page_num,
+        'page':paged_products,
         'products_count':products.count(),
         'search_keyword':keyword
         }
