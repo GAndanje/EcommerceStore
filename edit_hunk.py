@@ -9,3 +9,8 @@ class App:
         # two of our
         # application
         return
+    def feature3():
+        # this is feature
+        # three of our
+        # application
+        return
