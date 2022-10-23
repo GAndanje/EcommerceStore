@@ -71,21 +71,27 @@ def add_cart(request,product_id):
     cart_item.save()
     return redirect('cart')
 
-def decrement_cart(request,product_id):
+def decrement_cart(request,product_id,cart_item_id):
     cart=Cart.objects.get(cart_id=_get_session_id(request))
     item=get_object_or_404(Product,id=product_id)
-    cart_item=CartItem.objects.get(product=item,cart=cart)
-    if cart_item.quantity<=1:
-        return redirect('remove_from_cart',product_id=product_id)
-    cart_item.quantity-=1
-    cart_item.save()
+    try:
+        cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
+        if cart_item.quantity<=1:
+            return redirect('remove_from_cart',product_id,cart_item_id)
+        cart_item.quantity-=1
+        cart_item.save()
+    except:
+        pass
     return redirect('cart')
     
 
-def remove_from_cart(request,product_id):
+def remove_from_cart(request,product_id,cart_item_id):
     cart=Cart.objects.get(cart_id=_get_session_id(request))
     item=get_object_or_404(Product,id=product_id)
-    cart_item=CartItem.objects.get(product=item,cart=cart)
-    cart_item.delete()
+    try:
+        cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
+        cart_item.delete()
+    except:
+        pass
     return redirect('cart')
   
