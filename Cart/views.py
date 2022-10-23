@@ -1,9 +1,7 @@
-from gc import set_debug
-from math import prod
-import re
 from django.shortcuts import HttpResponse, get_object_or_404, render,redirect
 
 from Cart.models import CartItem,Cart
+from Store.models import ProductVariation
 from Store.models import Product
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -35,6 +33,16 @@ def _get_session_id(request):
 
 def add_cart(request,product_id):
     product=Product.objects.get(id=product_id) #i think the id is the autoincrementing autoassigned unique pk
+    variationList=[]
+    if request.method=='POST':
+        for item in request.POST:
+            key=item
+            value=request.POST[key]
+            try:
+                variation=ProductVariation.objects.get(product=product,variation_category__iexact=key,variation_value__iexact=value)
+                variationList.append(variation)
+            except Exception:
+                pass
     try:
         cart=Cart.objects.get(cart_id=_get_session_id(request)) #
     except Cart.DoesNotExist:
