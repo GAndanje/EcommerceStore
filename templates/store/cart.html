@@ -26,14 +26,21 @@
     </thead>
     <tbody>
 
-        {% for item in cartItems%}
+        {% for cart_item in cartItems%}
         <tr>
             <td>
                 <figure class="itemside align-items-center">
-                    <div class="aside"><img src="{{item.product.image.url}}" class="img-sm"></div>
+                    <div class="aside"><img src="{{cart_item.product.image.url}}" class="img-sm"></div>
                     <figcaption class="info">
-                        <a href="{{item.product.get_url}}" class="title text-dark">{{item.product.product_name}}</a>
-                        <p class="text-muted small">Matrix: 25 Mpx <br> Brand: Canon</p>
+                        <a href="{{cart_item.product.get_url}}" class="title text-dark">{{cart_item.product.product_name}}</a>
+                        <p class="text-muted small">
+                            {% if cart_item.product_variation.all %}
+                                {% for item in cart_item.product_variation.all %}
+                                    {{item.variation_category | lower}}: {{item.variation_value | capfirst}}
+                                    <br> 
+                                {% endfor %}
+                            {% endif %}
+                        </p>
                     </figcaption>
                 </figure>
             </td>
