@@ -39,5 +39,5 @@ class ProductVariation(models.Model):
     is_active=models.BooleanField(default=True)
     created=models.DateTimeField(auto_now=True)
     objects=VariationsManager()
-    def __unicode__(self):
-        return self.product
+    def __str__(self):
+        return self.variation_value
