@@ -65,12 +65,12 @@
             </td>
             <td> 
                 <div class="price-wrap"> 
-                    <var class="price">${{item.sub_total}}.00</var> 
-                    <small class="text-muted"> ${{item.product.price}} each </small> 
+                    <var class="price">${{cart_item.sub_total}}.00</var> 
+                    <small class="text-muted"> ${{cart_item.product.price}} each </small> 
                 </div> <!-- price-wrap .// -->
             </td>
             <td class="text-right"> 
-            <a href="{%url 'remove_from_cart' item.product.id%}" class="btn btn-danger"> Remove</a>
+            <a href="{%url 'remove_from_cart' cart_item.product.id cart_item.id%}" onclick="return confirm('This {{cart_item.product.product_name}} will be deleted from your Cart!') "class="btn btn-danger"> Remove</a>
             </td>
         </tr>
         {%endfor%}
