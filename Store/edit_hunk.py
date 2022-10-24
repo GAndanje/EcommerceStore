@@ -3,3 +3,7 @@ class Application1:
         # line one
         # line two
         pass
+    def feature2():
+        # line one
+        # line two
+        pass
