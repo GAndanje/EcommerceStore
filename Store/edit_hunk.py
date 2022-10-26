@@ -7,7 +7,3 @@ class Application1:
         # line one
         # line two
         pass
-    def feature3():
-        # line one
-        # line two
-        pass
