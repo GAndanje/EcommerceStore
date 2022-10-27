@@ -32,6 +32,12 @@ def _get_session_id(request):
     return session_id
 
 def add_cart(request,product_id):
+    if request.method=='POST':
+        if request.POST:
+            for item in request.POST:
+                key=item
+                value=request.POST[key]
+                
     product=Product.objects.get(id=product_id) #i think the id is the autoincrementing autoassigned unique pk
     variationList=[]
     if request.method=='POST':
