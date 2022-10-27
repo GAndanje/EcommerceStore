@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
-def cart(request,cartItems=None,totalPrice=0):
+def cart(request,cartItems=None,totalPrice=0,tax=0,grandTotal=0):
     try:
         cartObject=Cart.objects.get(cart_id=request.session.session_key)
         cartItems=CartItem.objects.all().filter(cart=cartObject,is_active=True)
@@ -32,6 +32,12 @@ def _get_session_id(request):
     return session_id
 
 def add_cart(request,product_id):
+    if request.method=='POST':
+        if request.POST:
+            for item in request.POST:
+                key=item
+                value=request.POST[key]
+                
     product=Product.objects.get(id=product_id) #i think the id is the autoincrementing autoassigned unique pk
     variationList=[]
     if request.method=='POST':
