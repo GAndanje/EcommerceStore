@@ -16,7 +16,7 @@ from pathlib import Path
 # from ProjectEcommerce.Accounts.models import Account
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
+print(f'>>>>>>>>>{BASE_DIR}')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -137,3 +137,10 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+# SMTP configuration
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='gilbertandanje@gmail.com'
+EMAIL_USE_TLS=True
+EMAIL_HOST_PASSWORD='uymwizimkbxjtwmr'
