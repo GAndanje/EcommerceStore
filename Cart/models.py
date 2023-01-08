@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from Store.models import ProductVariation
 from Store.models import Product
@@ -17,7 +16,7 @@ class CartItem(models.Model):
     is_active=models.BooleanField(default=True)
     quantity=models.IntegerField()
 
-    def __str__(self):
+    def __unicode__(self):
         return self.product
     def sub_total(self):
         return self.quantity*self.product.price
