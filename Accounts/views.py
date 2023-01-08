@@ -25,8 +25,21 @@ def register(request):
             user=Account.objects.create_user(first_name=first_name,last_name=last_name,email=email,username=username,password=password)
             user.phone_number=phone_number
             user.save()
-            messages.success(request,'Your account has been created successfully!')
-            return redirect('register')
+            # user activation
+            current_site=get_current_site(request)
+            mail_subject='Please verify your email'
+            message=render_to_string('accounts/accounts_verification_email.html',{
+                'user':user,
+                'domain':current_site,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':default_token_generator.make_token(user),
+                })
+            to_email=email
+            send_email=EmailMessage(mail_subject,message,to=[to_email])
+            send_email.send()
+            
+            # messages.success(request,'We have sent you a verification email kindly confirm to activate your account!')
+            return redirect(f"/accounts/Login/?command=verification&email={email}")
     else:
         form=RegisterForm()
     context={
@@ -41,8 +54,8 @@ def login(request):
         user=auth.authenticate(request,email=email,password=password)
         if user is not None:
             auth.login(request,user)
-            # messages.success(request,'You are now logged in!')
-            return redirect('home')
+            messages.success(request,'You are now logged in!')
+            return redirect('dashboard')
         else:
             messages.error(request,'Invalid Password or/and Email')
             return redirect('login')
