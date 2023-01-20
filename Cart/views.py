@@ -105,10 +105,13 @@ def add_cart(request,product_id):
     return redirect('cart')
 
 def decrement_cart(request,product_id,cart_item_id):
-    cart=Cart.objects.get(cart_id=_get_session_id(request))
     item=get_object_or_404(Product,id=product_id)
     try:
-        cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
+        if request.user.is_authenticated:
+            cart_item=CartItem.objects.get(product=item,user=request.user,id=cart_item_id)
+        else:
+            cart=Cart.objects.get(cart_id=_get_session_id(request)) 
+            cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
         if cart_item.quantity<=1:
             return redirect('remove_from_cart',product_id,cart_item_id)
         cart_item.quantity-=1
@@ -119,10 +122,13 @@ def decrement_cart(request,product_id,cart_item_id):
     
 
 def remove_from_cart(request,product_id,cart_item_id):
-    cart=Cart.objects.get(cart_id=_get_session_id(request))
     item=get_object_or_404(Product,id=product_id)
     try:
-        cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
+        if request.user.is_authenticated:
+            cart_item=CartItem.objects.get(product=item,user=request.user,id=cart_item_id)
+        else:  
+            cart=Cart.objects.get(cart_id=_get_session_id(request))
+            cart_item=CartItem.objects.get(product=item,cart=cart,id=cart_item_id)
         cart_item.delete()
     except:
         pass
