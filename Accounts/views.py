@@ -93,12 +93,25 @@ def login(request):
             except:
                 pass
             auth.login(request,user)
-            messages.success(request,'You are now logged in!')
-            return redirect('dashboard')
+            prev_url=request.META.get('HTTP_REFERER')
+            print(prev_url)
+            try:
+                prev_query=requests.utils.urlparse(prev_url).query
+                params=dict(x.split('=') for x in  prev_query.split('&'))
+                print(params)
+                if 'next' in params:
+                    next_page=params['next']
+                    messages.success(request,'You are now logged in!')
+                    return redirect(next_page)
+            except:
+                print('next not in >>>>>>')
+                messages.success(request,'You are now logged in!')
+                return redirect('dashboard')
         else:
             messages.error(request,'Invalid Password or/and Email')
             return redirect('login')
     return render(request,'accounts/login.html')
+
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
