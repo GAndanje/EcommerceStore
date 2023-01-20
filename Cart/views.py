@@ -4,14 +4,18 @@ from Cart.models import CartItem,Cart
 from Store.models import ProductVariation
 from Store.models import Product
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 
 
 # Create your views here.
 def cart(request,cartItems=None,totalPrice=0,tax=0,grandTotal=0):
     try:
-        cartObject=Cart.objects.get(cart_id=request.session.session_key)
-        cartItems=CartItem.objects.all().filter(cart=cartObject,is_active=True)
+        if request.user.is_authenticated:
+            cartItems=CartItem.objects.all().filter(user=request.user,is_active=True)
+        else:
+            cartObject=Cart.objects.get(cart_id=request.session.session_key)
+            cartItems=CartItem.objects.all().filter(cart=cartObject,is_active=True)
         for item in cartItems:
             totalPrice+=item.product.price*item.quantity
         tax=.02*totalPrice
