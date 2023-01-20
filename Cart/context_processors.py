@@ -9,7 +9,10 @@ def cart_counter(request):
     else:
         try:
             session_cart=Cart.objects.filter(cart_id=_get_session_id(request))
-            cart_items=CartItem.objects.all().filter(cart=session_cart[:1])
+            if request.user.is_authenticated:
+                cart_items=CartItem.objects.all().filter(user=request.user)
+            else:
+                cart_items=CartItem.objects.all().filter(cart=session_cart[:1])
             for cart_item in cart_items:
                 count+=cart_item.quantity
         except Cart.DoesNotExist:
