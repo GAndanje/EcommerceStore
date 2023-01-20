@@ -100,4 +100,25 @@ def remove_from_cart(request,product_id,cart_item_id):
     except:
         pass
     return redirect('cart')
+@login_required(login_url='login')
+def checkout(request,cartItems=None,totalPrice=0,tax=0,grandTotal=0):
+    try:
+        if request.user.is_authenticated:
+            cartItems=CartItem.objects.all().filter(user=request.user,is_active=True)
+        else:
+            cartObject=Cart.objects.get(cart_id=request.session.session_key)
+            cartItems=CartItem.objects.all().filter(cart=cartObject,is_active=True)
+        for item in cartItems:
+            totalPrice+=item.product.price*item.quantity
+        tax=.02*totalPrice
+        grandTotal=totalPrice+tax
+    except ObjectDoesNotExist:
+        pass
+    context={
+        'cartItems':cartItems,
+        'totalPrice':totalPrice,
+        'tax':tax,
+        'grandTotal':grandTotal
+    }
+    return render(request,'store/checkout.html',context)
   
