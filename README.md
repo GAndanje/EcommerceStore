@@ -5,18 +5,18 @@
 + Static files to be stored on Amazon S3
 + Will use amazon RDS PostGreSQL database
 
-#App Features
+# App Features
 
-##Review Rating
+## Review Rating
 <img width="986" alt="Screenshot 2023-01-28 at 01 52 13" src="https://user-images.githubusercontent.com/77880940/215224181-d05410f4-4099-4d4c-9537-8768881f1199.png">
 
-##User Cart
+## User Cart
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
 
-##User Dashboard
+## User Dashboard
 <img width="1273" alt="Screenshot 2023-01-28 at 01 57 03" src="https://user-images.githubusercontent.com/77880940/215224217-d75c6e94-0a16-4a25-b024-5d93f9162d4c.png">
 
-##Payment View with PayPal intergration
+## Payment View with PayPal intergration
 <img width="1275" alt="Screenshot 2023-01-28 at 01 37 18" src="https://user-images.githubusercontent.com/77880940/215224223-f34b3755-22b9-42fd-967d-4a4858bb6fc4.png">
 
 
