@@ -128,7 +128,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
-STATICFILES_DIRS =['EcommerceStore/static',]
+STATICFILES_DIRS =[
+    'EcommerceStore/static',
+    ]
 
 # configure media files
 MEDIA_URL='/media/'
