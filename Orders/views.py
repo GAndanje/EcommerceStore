@@ -67,7 +67,56 @@ def payments(request):
     order.payment=payment_object
     order.is_ordered=True
     order.save()
-    return render(request,'orders/payment.html')def order_complete(request):
+    cart_items=CartItem.objects.filter(user=request.user)
+    for item in cart_items:
+        order_product=OrderProduct()
+        order_product.user_id=request.user.id
+        order_product.product_id=item.product.id
+        order_product.payment=payment_object
+        order_product.order_id=order.id
+        order_product.quantity=item.quantity
+        order_product.product_price=item.product.price
+        order_product.ordered=True
+        order_product.save()
+        variations=item.product_variation.all()
+        order_product.variation.set(variations)
+        order_product.save()
+        product_object=Product.objects.get(id=item.product.id)
+        product_object.stock-=item.quantity
+        product_object.save()
+        
+    CartItem.objects.filter(user=request.user).delete()
+    mail_subject='Your order has been received!'
+    message=render_to_string('orders/order_received.html',{
+        'user':request.user,
+        'order_number':order.order_number
+        })
+    to_email=request.user.email
+    send_email=EmailMessage(mail_subject,message,to=[to_email])
+    send_email.send()
+    # move cart_items to OrderProduct table
+    # clear cart
+    # reduce product quantity
+    # send order received email to customer
+    # send transaction details on_approve via json response and redirect the user to thank you page 
+    data={
+        'order_number':order.order_number,
+        'payment_id':payment_object.payment_id
+    }
+    return JsonResponse(data)
+
+
+    # user=models.ForeignKey(Account,on_delete=models.CASCADE)
+    # product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    # payment=models.ForeignKey(Payment,on_delete=models.SET_NULL,blank=True,null=True)
+    # order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    # variation=models.ForeignKey(ProductVariation,on_delete=models.CASCADE)
+    # quantity=models.IntegerField()
+    # product_price=models.FloatField()
+    # ordered=models.BooleanField(default=False)
+    # created_at=models.DateField(auto_now_add=True)
+    # updated_at=models.DateField(auto_now=True)        
+def order_complete(request):
     order_number=request.GET.get('order_number')
     trans_id=request.GET.get('transID')
     try:
