@@ -6,7 +6,6 @@
 + Will use amazon RDS PostGreSQL database
 
 #App Features
-<img width="1278" alt="Screenshot 2023-01-08 at 22 17 55" src="https://user-images.githubusercontent.com/77880940/215224097-31fa96ab-643a-42b6-b376-2e493cca23f0.png">
 <img width="986" alt="Screenshot 2023-01-28 at 01 52 13" src="https://user-images.githubusercontent.com/77880940/215224181-d05410f4-4099-4d4c-9537-8768881f1199.png">
 <img width="1353" alt="Screenshot 2023-01-28 at 01 36 11" src="https://user-images.githubusercontent.com/77880940/215224195-0a398f71-5b76-4ccb-954f-d0d4f7f652ff.png">
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
