@@ -13,6 +13,15 @@
 # App Features
 
 ## Review Rating
++ Rating stars rendered with FontAwesome.
++ Shows average:
++ + rating of the product.
++ +every users review rating. 
++ +total number of reviews so far of the product.
++ The user can see all reviews of the product in this view.
++ Admin can turn on/off reviews every review.
++ Only previous purchasers of a product can review the product.
++ 
 <img width="986" alt="Screenshot 2023-01-28 at 01 52 13" src="https://user-images.githubusercontent.com/77880940/215224181-d05410f4-4099-4d4c-9537-8768881f1199.png">
 
 ## User Cart
