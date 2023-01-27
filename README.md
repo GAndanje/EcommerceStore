@@ -1,6 +1,6 @@
-Built on Django framework this web app runs on top of SQL3 development server
-Bootstrap framework is used to render frontend css styling
-PayPal API is used to enable payments on checkout
+- Built on Django framework this web app runs on top of SQL3 development server
+- Bootstrap framework is used to render frontend css styling
+- PayPal API is used to enable payments on checkout
 
  
 # EcommerceStore
@@ -20,9 +20,9 @@ PayPal API is used to enable payments on checkout
 
 ## User Dashboard
 A user can:
-+Edit their profile including profile picture
-+View their order history
-+change their password
++ Edit their profile including profile picture
++ View their order history
++ change their password
 <img width="1273" alt="Screenshot 2023-01-28 at 01 57 03" src="https://user-images.githubusercontent.com/77880940/215224217-d75c6e94-0a16-4a25-b024-5d93f9162d4c.png">
 
 
