@@ -5,4 +5,12 @@
 + Static files to be stored on Amazon S3
 + Will use amazon RDS PostGreSQL database
 
-![ alt text for screen readers]([/path/to/image. png](https://user-images.githubusercontent.com/77880940/215223158-99670191-e156-4055-a5ef-fe6528d9d152.png) "Text to show on mouseover")
+#App Features
+<img width="1278" alt="Screenshot 2023-01-08 at 22 17 55" src="https://user-images.githubusercontent.com/77880940/215224097-31fa96ab-643a-42b6-b376-2e493cca23f0.png">
+<img width="986" alt="Screenshot 2023-01-28 at 01 52 13" src="https://user-images.githubusercontent.com/77880940/215224181-d05410f4-4099-4d4c-9537-8768881f1199.png">
+<img width="1353" alt="Screenshot 2023-01-28 at 01 36 11" src="https://user-images.githubusercontent.com/77880940/215224195-0a398f71-5b76-4ccb-954f-d0d4f7f652ff.png">
+<img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
+<img width="1273" alt="Screenshot 2023-01-28 at 01 57 03" src="https://user-images.githubusercontent.com/77880940/215224217-d75c6e94-0a16-4a25-b024-5d93f9162d4c.png">
+<img width="1275" alt="Screenshot 2023-01-28 at 01 37 18" src="https://user-images.githubusercontent.com/77880940/215224223-f34b3755-22b9-42fd-967d-4a4858bb6fc4.png">
+
+
