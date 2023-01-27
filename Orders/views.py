@@ -1,7 +1,11 @@
 from django.shortcuts import redirect,render
-from .models import Order,Payment
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from .models import Order,Payment,OrderProduct
 from Cart.models import CartItem
 from .forms import OrderForm
+from Store.models import Product
 import datetime
 import json
 # Create your views here.
@@ -63,4 +67,22 @@ def payments(request):
     order.payment=payment_object
     order.is_ordered=True
     order.save()
-    return render(request,'orders/payment.html')
+    return render(request,'orders/payment.html')def order_complete(request):
+    order_number=request.GET.get('order_number')
+    trans_id=request.GET.get('transID')
+    try:
+        order=Order.objects.get(order_number=order_number,is_ordered=True)
+        order_products=OrderProduct.objects.filter(order_id=order.id)
+        payment=Payment.objects.get(payment_id=trans_id)
+        sub_total=0
+        for product in order_products:
+            sub_total+=product.quantity*product.product_price
+        context={
+            'order':order,
+            'order_products':order_products,
+            'payment':payment,
+            'sub_total':sub_total
+        }
+        return render(request,'orders/order_complete.html',context)
+    except (order.DoesNotExist,Payment.DoesNotExist):
+        return redirect('home')
