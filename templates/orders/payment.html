@@ -140,10 +140,11 @@
     var csrftoken = getCookie('csrftoken');
     var orderId="{{data.order_number}}";
     var payment_method='PayPal';
+    var redirect_url="{% url 'order_complete' %}"
 
     paypal.Buttons({
         style: {
-            color:  'blue',
+            color:  'black',
             shape:  'pill',
             label:  'pay',
             height: 40
@@ -181,6 +182,10 @@
                         'status':orderData.status
                     }),
                     })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        window.location.href=redirect_url+'?order_number='+data.order_number+'&transID='+data.payment_id
+                    });
                 }
                 var transaction = orderData.purchase_units[0].payments.captures[0];
                 alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');

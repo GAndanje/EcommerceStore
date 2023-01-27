@@ -1,7 +1,10 @@
 from nis import cat
 from threading import get_ident
-from django.shortcuts import HttpResponse, render,get_object_or_404,redirect
-from .models import Product
+from django.shortcuts import render,get_object_or_404,redirect
+from django.contrib import messages
+from .models import Product,ReviewRating
+from .forms import RatingsForm
+from Orders.models import OrderProduct
 from Category.models import Category
 from Cart.models import CartItem
 from Cart.views import _get_session_id
@@ -35,9 +38,19 @@ def product_detail(request,category_slug=None,product_slug=None):
         in_cart=CartItem.objects.filter(cart__cart_id=_get_session_id(request),product=product).exists()
     except Exception as e:
         return e
+    try:
+        bought_product=OrderProduct.objects.filter(user_id=request.user.id,product_id=product.id).exists()
+    except OrderProduct.DoesNotExist:
+        bought_product=None
+    try:
+        product_reviews=ReviewRating.objects.filter(product_id=product.id,status=True)
+    except ReviewRating.DoesNotExist:
+        product_reviews=None
     context={
         'product':product,
-        'in_cart':in_cart
+        'in_cart':in_cart,
+        'has_bought_product':bought_product,
+        'product_reviews':product_reviews
     }
     return render(request,'store/product_detail.html',context)
 
@@ -58,3 +71,27 @@ def search(request):
         'search_keyword':keyword
         }
     return render(request,'store/store.html',context)
+
+def reviews(request,product_id):
+    url=request.META.get('HTTP_REFERER')
+    if request.method=='POST':
+        try:
+            reviews_=ReviewRating.objects.get(user_id=request.user.id,product_id=product_id)
+            form=RatingsForm(request.POST,instance=reviews_)
+            form.save()
+            messages.success(request,'Thank you. Your review has been updated successfully!')
+            return redirect(url)
+        except ReviewRating.DoesNotExist:
+            form=RatingsForm(request.POST)
+            if form.is_valid():
+                rating=ReviewRating()
+                rating.user_id=request.user.id
+                rating.product_id=product_id
+                rating.subject=form.cleaned_data['subject']
+                rating.review=form.cleaned_data['review']
+                rating.rating=form.cleaned_data['rating']
+                rating.ip=request.META.get('REMOTE_ADDR')
+                rating.save()
+                messages.success(request,'Thank you! Your review has been received. If you have any concerns please contact our support center')
+                return redirect(url)
+        return redirect(url)
