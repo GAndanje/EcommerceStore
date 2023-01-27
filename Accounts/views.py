@@ -133,10 +133,19 @@ def activate(request,uidb64,token):
     else:
         messages.error(request,'Link has expired')
         return redirect('register')
-
-@login_required
+        
+@login_required(login_url='login')
 def dashboard(request):
-    context=None
+    try:
+        orders=Order.objects.order_by('-created_at').filter(user_id=request.user.id,is_ordered=True)
+        orders_count=orders.count()
+    except:
+        orders_count=0
+    user_profile=UserProfile.objects.get(user_id=request.user.id)
+    context={
+        'orders_count':orders_count,
+        'user_profile':user_profile
+    }
     return render(request,'accounts/dashboard.html',context)
 
 def forgotPassword(request):
@@ -192,7 +201,20 @@ def resetPassword(request):
         else:
             messages.error(request,'passwords do not match!')
             return redirect('resetPassword')
-    return render(request,'accounts/resetPasswordForm.html')@login_required(login_url='login')
+    return render(request,'accounts/resetPasswordForm.html')
+
+@login_required(login_url='login')
+def my_orders(request):
+    try:
+        orders=Order.objects.filter(user=request.user,is_ordered=True).order_by('-created_at')
+    except Order.DoesNotExist:
+        orders=None
+    context={
+        'orders':orders,
+    }
+    return render(request,'accounts/my_orders.html',context)
+
+@login_required(login_url='login')
 def edit_profile(request):
     user_profile_instance=get_object_or_404(UserProfile,user=request.user)
     if request.method=="POST":
@@ -212,3 +234,31 @@ def edit_profile(request):
         'user_profile':user_profile_instance
     }
     return render(request,'accounts/edit_profile.html',context)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method=='POST':
+        current_password=request.POST['current_password']
+        new_password=request.POST['new_password']
+        confirm_password=request.POST['confirm_password']
+        user=Account.objects.get(username__exact=request.user.username)
+        if new_password == confirm_password:
+            success=user.check_password(current_password)
+            if success:
+                user.set_password(new_password)
+                user.save()
+                auth.logout(request)
+                messages.success(request,'Password changed successfully')
+                return redirect('login')
+            else:
+                messages.error(request,'Wrong password!')
+                return redirect('change_password')
+        else:
+            messages.error(request,'Passwords do not match')
+            return redirect('change_password')
+    return render(request,'accounts/change_password.html')
+
+@login_required(login_url='login')
+def order_detail(request,order_id):
+    context=None
+    return render(request,'accounts/order_detail.html',context)
