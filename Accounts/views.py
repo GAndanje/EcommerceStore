@@ -1,10 +1,11 @@
 from django.core.mail import EmailMessage
+
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render,redirect
-from .forms import RegisterForm
-from .models import Account
+from django.shortcuts import render,redirect,get_object_or_404
+from .forms import RegisterForm,UserForm,UserProfileForm
+from .models import Account,UserProfile
+from Orders.models import Order
 from Cart.models import Cart,CartItem
 from Cart.views import _get_session_id
 
@@ -191,4 +192,23 @@ def resetPassword(request):
         else:
             messages.error(request,'passwords do not match!')
             return redirect('resetPassword')
-    return render(request,'accounts/resetPasswordForm.html')
+    return render(request,'accounts/resetPasswordForm.html')@login_required(login_url='login')
+def edit_profile(request):
+    user_profile_instance=get_object_or_404(UserProfile,user=request.user)
+    if request.method=="POST":
+        user_form=UserForm(request.POST,instance=request.user)
+        user_profile_form=UserProfileForm(request.POST,request.FILES,instance=user_profile_instance)
+        if user_form.is_valid() and user_profile_form.is_valid():
+            user_profile_form.save()
+            user_form.save()
+            messages.success(request,'Your profile has been successfully updated!')
+            return redirect('edit_profile')
+    else:
+        user_form=UserForm(instance=request.user)
+        user_profile_form=UserProfileForm(instance=user_profile_instance)
+    context={
+        'user_form':user_form,
+        'user_profile_form':user_profile_form,
+        'user_profile':user_profile_instance
+    }
+    return render(request,'accounts/edit_profile.html',context)
