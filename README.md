@@ -1,3 +1,8 @@
+Built on Django framework this web app runs on top of SQL3 development server
+Bootstrap framework is used to render frontend css styling
+PayPal API is used to enable payments on checkout
+
+ 
 # EcommerceStore
 + An E-commerce store with Django framework
 + To be hosted on AWS server
@@ -14,7 +19,12 @@
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
 
 ## User Dashboard
+A user can:
++Edit their profile including profile picture
++View their order history
++change their password
 <img width="1273" alt="Screenshot 2023-01-28 at 01 57 03" src="https://user-images.githubusercontent.com/77880940/215224217-d75c6e94-0a16-4a25-b024-5d93f9162d4c.png">
+
 
 ## Payment View with PayPal intergration
 <img width="1275" alt="Screenshot 2023-01-28 at 01 37 18" src="https://user-images.githubusercontent.com/77880940/215224223-f34b3755-22b9-42fd-967d-4a4858bb6fc4.png">
