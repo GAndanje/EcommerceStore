@@ -15,9 +15,9 @@
 ## Review Rating
 + Rating stars rendered with FontAwesome.
 + Shows average:
- -  rating of the product.
- -  every users review rating. 
- -  total number of reviews so far of the product.
+    - rating of the product.
+    - every users review rating. 
+    - total number of reviews so far of the product.
 + The user can see all reviews of the product in this view.
 + Admin can turn on/off reviews every review.
 + Only previous purchasers of a product can review the product.
