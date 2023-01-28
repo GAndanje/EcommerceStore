@@ -28,6 +28,7 @@
 + Can add or decrement the cart_item here.
 + Can remove entire cart_item here.
 + Items summary before checkout
++ can confirm product variations
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
 
 ## User Dashboard
