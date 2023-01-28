@@ -14,10 +14,10 @@
 
 ## Review Rating
 + Rating stars rendered with FontAwesome.
-+ Shows average:
-    - rating of the product.
-    - every users review rating. 
-    - total number of reviews so far of the product.
++ Shows:
+    - Average rating of the product.
+    - Every users review rating. 
+    - Total number of reviews so far of the product.
 + The user can see all reviews of the product in this view.
 + Admin can turn on/off reviews every review.
 + Only previous purchasers of a product can review the product.
@@ -25,13 +25,17 @@
 <img width="986" alt="Screenshot 2023-01-28 at 01 52 13" src="https://user-images.githubusercontent.com/77880940/215224181-d05410f4-4099-4d4c-9537-8768881f1199.png">
 
 ## User Cart
++ Can add or decrement the cart_item here.
++ Can remove entire cart_item here.
++ Items summary before checkout
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
 
 ## User Dashboard
 A user can:
-+ Edit their profile including profile picture
-+ View their order history
-+ change their password
+    + Edit their profile including profile picture
+    + View their order history
+    + Change their password
+    + Logout
 <img width="1273" alt="Screenshot 2023-01-28 at 01 57 03" src="https://user-images.githubusercontent.com/77880940/215224217-d75c6e94-0a16-4a25-b024-5d93f9162d4c.png">
 
 
