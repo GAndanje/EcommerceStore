@@ -32,7 +32,7 @@
 <img width="1260" alt="Screenshot 2023-01-28 at 01 58 39" src="https://user-images.githubusercontent.com/77880940/215224205-1673fdb4-1498-4464-8216-3575d006c2b8.png">
 
 ## User Dashboard
-A user can:
++ A user can:
     + Edit their profile including profile picture
     + View their order history
     + Change their password
